@@ -62,5 +62,16 @@ it('Envia o formulário com sucesso usando um comando customizado', () => {
     cy.fillMandatoryFieldsAndSubmit()
 });
 
+it('Seleciona um produto (YouTube) por seu texto', () => {
+    //busca o elemento e ID do elemento
+    cy.get('select#product').select('YouTube').should('have.value','youtube')
+});
+it('Seleciona um produto (Mentoria) por seu valor', () => {
+    cy.get('select').select('mentoria').should('have.value','mentoria')
+});
+it('Seleciona um produto (Blog) por seu índice', () => {
+    cy.get('select').select(1).should('have.value','blog')
+});
+
 })
 
