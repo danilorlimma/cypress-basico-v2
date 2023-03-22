@@ -11,13 +11,13 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
 
     })
-    it.only('Preenche os campos obrigatórios e envia o formulário', () => {
+    it('Preenche os campos obrigatórios e envia o formulário', () => {
         const longText = 'Lorem ipsum dolor sit amet. Um este este é este personalizado é este este. sonalizado personalizado um personalizado texto.'
         cy.get('#firstName').click().type('Danilo')
         cy.get('#lastName').click().type('Lima')
         cy.get('#email').click().type('danilo.lima@outlook.com')
         cy.get('#open-text-area').click().type(longText, { delay: 1 })
-        cy.get('.button[type="submit"]').click()
+        cy.contains('.button[type="submit"]','Enviar').click()
         cy.get('.success').should('be.visible')
       
     });
@@ -26,7 +26,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('#lastName').click().type('Lima')
         cy.get('#email').click().type('danilolimma.com.br')
         cy.get('#open-text-area').click().type('Gostaria de solicitar reembolso', { delay: 10 })
-        cy.get('.button[type="submit"]').click()
+        cy.contains('.button[type="submit"]','Enviar').click()
         cy.get('.error').should('be.visible')
 
     })
@@ -40,7 +40,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('#lastName').click().type('Lima')
         cy.get('#email').click().type('danilolimma@outlook.com.br')
         cy.get('#open-text-area').click().type('Gostaria de solicitar reembolso', { delay: 10 })
-        cy.get('.button[type="submit"]').click()
+        cy.contains('.button[type="submit"]','Enviar').click()
         cy.get('.error').should('be.visible')
         
     });
@@ -54,11 +54,11 @@ describe('Central de Atendimento ao Cliente TAT', function () {
 //#endregion
 
 it('Exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
-    cy.get('button[type="submit"]').click()
+    cy.contains('.button[type="submit"]','Enviar').click()
     cy.get('.error').should('be.visible')
 });
 
-it.only('Envia o formulário com sucesso usando um comando customizado', () => {
+it('Envia o formulário com sucesso usando um comando customizado', () => {
     cy.fillMandatoryFieldsAndSubmit()
 });
 
