@@ -1,12 +1,10 @@
 /// <reference types="Cypress" />
 
-
 beforeEach(() => {
     cy.visit('./src/index.html')
-
 });
 describe('Central de Atendimento ao Cliente TAT', function () {
-    //#region 
+    
     it('verifica o título da aplicação', function () {
         cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
 
@@ -51,7 +49,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('#email').type('danilolimma@outlook.com.br').should('have.value','danilolimma@outlook.com.br').clear().should('have.value','')
         cy.get('#phone').type('123456', { delay: 10 }).should('have.value','123456').clear().should('have.value','')
     });
-//#endregion
+
 
 it('Exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
     cy.contains('.button[type="submit"]','Enviar').click()
@@ -72,6 +70,20 @@ it('Seleciona um produto (Mentoria) por seu valor', () => {
 it('Seleciona um produto (Blog) por seu índice', () => {
     cy.get('select').select(1).should('have.value','blog')
 });
-
-})
+it('Marca o tipo de atendimento "Feedback"', () => {
+    cy.get('input[value="feedback"]').check().should('have.value','feedback')
+});
+it('Marca cada tipo de atendimento', () => {
+     cy.get('input[value="ajuda"]').check().should('be.checked')
+    cy.get('input[value="elogio"]').check().should('be.checked')
+    cy.get('input[value="feedback"]').check().should('be.checked')
+});
+it('Marca cada tipo de atendimento com cy.each e cy.wrap', () => {
+    cy.get('input[type="radio"]').should('have.length',3)
+    .each(($ba) => {
+    cy.wrap($ba).check().should('be.checked')
+    })
+    })
+//#endregion
+});
 
