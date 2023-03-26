@@ -31,7 +31,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
     it('Valida telefone não numérico', () => {
         cy.get('#phone').type('asf').should('not.have.value')
     })
-    it.only('Exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
+    it('Exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
 
         cy.get('#phone-checkbox').check()
         cy.get('#firstName').click().type('Danilo')
@@ -94,7 +94,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
     })
     //#endregion
 
-    it.only('Marca ambos checkboxes, depois desmarca o último', () => {
+    it('Marca ambos checkboxes, depois desmarca o último', () => {
         cy.get('input[type="checkbox"]')
             .check()
             .last()
@@ -102,5 +102,28 @@ describe('Central de Atendimento ao Cliente TAT', function () {
             .should('not.be.checked')
     });
 
+    it('Seleciona um arquivo com cy.selectFile', () => {
+        cy.get('input[type="file"]')
+            .should('not.have.value')
+            //.selectFile('./cypress/fixtures/example.json')
+            .selectFile('C:/Users/danilo.lima/Desktop/GuideBR_DropIT.pdf')
+            .should(function (input){
+                {console.log(input)
+                //expect(input[0].files[0].name)
+                  //  .to.equal('example.json')
+            }})
+    });
+    it('Seleciona um arquivo simulando um drag-and-drop', () => {
+        cy.get('input[type="file"]')
+            .should('not.have.value')
+            .selectFile('./cypress/fixtures/example.json',{ action: 'drag-drop' })
+            .should(function (input) {
+                //{console.log(input)
+                expect(input[0].files[0].name)
+                    .to.equal('example.json')
+
+            });
+
+    });
 });
 
