@@ -14,7 +14,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('#firstName').click().type('Danilo')
         cy.get('#lastName').click().type('Lima')
         cy.get('#email').click().type('danilo.lima@outlook.com')
-        cy.get('#open-text-area').click().type(longText, { delay: 1 })
+        cy.get('#open-text-area').click().type(longText, { delay: 0 })
         cy.contains('.button[type="submit"]', 'Enviar').click()
         cy.get('.success').should('be.visible')
 
@@ -23,7 +23,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('#firstName').click().type('Danilo')
         cy.get('#lastName').click().type('Lima')
         cy.get('#email').click().type('danilolimma.com.br')
-        cy.get('#open-text-area').click().type('Gostaria de solicitar reembolso', { delay: 10 })
+        cy.get('#open-text-area').click().type('Gostaria de solicitar reembolso', { delay: 0 })
         cy.contains('.button[type="submit"]', 'Enviar').click()
         cy.get('.error').should('be.visible')
 
@@ -37,7 +37,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('#firstName').click().type('Danilo')
         cy.get('#lastName').click().type('Lima')
         cy.get('#email').click().type('danilolimma@outlook.com.br')
-        cy.get('#open-text-area').click().type('Gostaria de solicitar reembolso', { delay: 10 })
+        cy.get('#open-text-area').click().type('Gostaria de solicitar reembolso', { delay: 0 })
         cy.contains('.button[type="submit"]', 'Enviar').click()
         cy.get('.error').should('be.visible')
 
@@ -115,15 +115,24 @@ describe('Central de Atendimento ao Cliente TAT', function () {
     });
     it('Seleciona um arquivo simulando um drag-and-drop', () => {
         cy.get('input[type="file"]')
-            .should('not.have.value')
-            .selectFile('./cypress/fixtures/example.json',{ action: 'drag-drop' })
-            .should(function (input) {
-                //{console.log(input)
-                expect(input[0].files[0].name)
-                    .to.equal('example.json')
-
-            });
-
+        .should('not.have.value')
+        .selectFile('./cypress/fixtures/example.json',{ action: 'drag-drop' })
+        .should(function (input) {
+            //{console.log(input)
+            expect(input[0].files[0].name)
+            .to.equal('example.json')
+        });
+        
+    });
+    it('Selecion um arquivo utilizando cy.fixture com alias', () => {
+        cy.fixture('example.json').as('sampleFile')
+        cy.get('input[type="file"]').selectFile('@sampleFile')
+        .should(function (input) {
+            //{console.log(input)
+            expect(input[0].files[0].name)
+            .to.equal('example.json')
+        });
+        
     });
 });
 
