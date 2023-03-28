@@ -1,5 +1,6 @@
 {
   "pluginsFile": false,
   "viewportHeight": 880,
-  "viewportWidth": 1280
+  "viewportWidth": 1280,
+  "_comment1": "H880*W1280 - mobile: H660, W:375 "  
 }
