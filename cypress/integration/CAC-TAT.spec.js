@@ -93,7 +93,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
             })
     })
     //#endregion
-
+    //#region
     it('Marca ambos checkboxes, depois desmarca o último', () => {
         cy.get('input[type="checkbox"]')
             .check()
@@ -124,7 +124,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         });
         
     });
-    it('Selecion um arquivo utilizando cy.fixture com alias', () => {
+    it('Seleciona um arquivo utilizando cy.fixture com alias', () => {
         cy.fixture('example.json').as('sampleFile')
         cy.get('input[type="file"]').selectFile('@sampleFile')
         .should(function (input) {
@@ -134,5 +134,21 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         });
         
     });
+    //#endregion
+    it('Verifica que a política de privacidade abre em outra aba sem a necessidade de um clique', () => {
+        cy.get('a[href="privacy.html"]')
+        .should('have.attr', 'target', '_blank')
+    });
+     it.only('Acessa a página da política de privacidade removendo o target e então clicando no link', () => {
+        cy.get('a[href="privacy.html"]')
+        .invoke('removeAttr','target')
+        .click()
+
+        cy.get('#title')
+        .should('have.text','CAC TAT - Política de privacidade')
+        cy.contains('Talking About Testing').should('be.visible')
+     });
+
+   
 });
 
