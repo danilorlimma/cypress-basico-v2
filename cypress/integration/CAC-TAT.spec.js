@@ -105,8 +105,8 @@ describe('Central de Atendimento ao Cliente TAT', function () {
     it('Seleciona um arquivo com cy.selectFile', () => {
         cy.get('input[type="file"]')
             .should('not.have.value')
-            //.selectFile('./cypress/fixtures/example.json')
-            .selectFile('C:/Users/danilo.lima/Desktop/GuideBR_DropIT.pdf')
+            .selectFile('./cypress/fixtures/example.json')
+            //.selectFile('C:/Users/danilo.lima/Desktop/GuideBR_DropIT.pdf')
             .should(function (input){
                 {console.log(input)
                 //expect(input[0].files[0].name)
