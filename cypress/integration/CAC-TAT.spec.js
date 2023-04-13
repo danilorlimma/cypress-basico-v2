@@ -18,11 +18,8 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('#open-text-area').click().type(longText, { delay: 0 })
         cy.contains('.button[type="submit"]', 'Enviar').click()
         cy.get('.success').should('be.visible')
-        
-        cy.tick(3000)
-        cy.get('.success').should('not.be.visible')
 
-       cy.tick(3000) // avança 3s no tempo
+        cy.tick(3000) // avança 3s no tempo
         cy.get('.success').should('not.be.visible')
 
     });
