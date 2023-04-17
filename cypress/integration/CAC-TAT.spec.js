@@ -190,5 +190,13 @@ describe('Central de Atendimento ao Cliente TAT', function () {
 
     });
     //#endregion
+    it.only('Preenche a area de texto usando o comando invoke', () => {
+        const longText = Cypress._.repeat('alkjslkjflls', 200) // repete os caracteres 
+
+        cy.get('#open-text-area')
+            .invoke('val', longText) // invoca o valor do elemento
+            .should('have.value', longText)
+
+    });
 });
 
