@@ -5,28 +5,29 @@ beforeEach(() => {
 });
 describe('Central de Atendimento ao Cliente TAT', function () {
     //#region 
-    const THREE_SECONDS_IN_MS = 3000 
+    const THREE_SECONDS_IN_MS = 3000
     it('verifica o título da aplicação', function () {
         cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
 
     })
-Cypress._.times(5,function(){  
-    it('Preenche os campos obrigatórios e envia o formulário', () => {
-    const longText = 'Lorem ipsum dolor sit amet. Um este este é este personalizado é este este. sonalizado personalizado um personalizado texto.'
-    cy.clock()
-    cy.get('#firstName').click().type('Danilo')
-    cy.get('#lastName').click().type('Lima')
-    cy.get('#email').click().type('danilo.lima@outlook.com',{delay:0})
-    cy.get('#open-text-area').click().type(longText, { delay: 0 })
-    cy.contains('.button[type="submit"]', 'Enviar').click()
-    cy.get('.success').should('be.visible')
+    Cypress._.times(5, function () {
+        it('Preenche os campos obrigatórios e envia o formulário', () => {
+            const longText = 'Lorem ipsum dolor sit amet. Um este este é este personalizado é este este. sonalizado personalizado um personalizado texto.'
+            cy.clock()
+            cy.get('#firstName').click().type('Danilo')
+            cy.get('#lastName').click().type('Lima')
+            cy.get('#email').click().type('danilo.lima@outlook.com', { delay: 0 })
+            cy.get('#open-text-area').click().type(longText, { delay: 0 })
+            cy.contains('.button[type="submit"]', 'Enviar').click()
+            cy.get('.success').should('be.visible')
 
-    cy.tick(THREE_SECONDS_IN_MS) // avança 3s no tempo
-    cy.get('.success').should('not.be.visible')
+            cy.tick(THREE_SECONDS_IN_MS) // avança 3s no tempo
+            cy.get('.success').should('not.be.visible')
 
-});})
+        });
+    })
 
-  
+
     it('Exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
         cy.clock()
         cy.get('#firstName').click().type('Danilo')
@@ -65,7 +66,7 @@ Cypress._.times(5,function(){
 
 
     it('Exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
-       cy.clock()
+        cy.clock()
         cy.contains('.button[type="submit"]', 'Enviar').click()
         cy.get('.error').should('be.visible')
         cy.tick(THREE_SECONDS_IN_MS)
@@ -123,69 +124,71 @@ Cypress._.times(5,function(){
             .should('not.have.value')
             .selectFile('./cypress/fixtures/example.json')
             //.selectFile('C:/Users/danilo.lima/Desktop/GuideBR_DropIT.pdf')
-            .should(function (input){
-                {console.log(input)
-                //expect(input[0].files[0].name)
-                  //  .to.equal('example.json')
-            }})
+            .should(function (input) {
+                {
+                    console.log(input)
+                    //expect(input[0].files[0].name)
+                    //  .to.equal('example.json')
+                }
+            })
     });
     it('Seleciona um arquivo simulando um drag-and-drop', () => {
         cy.get('input[type="file"]')
-        .should('not.have.value')
-        .selectFile('./cypress/fixtures/example.json',{ action: 'drag-drop' })
-        .should(function (input) {
-            //{console.log(input)
-            expect(input[0].files[0].name)
-            .to.equal('example.json')
-        });
-        
+            .should('not.have.value')
+            .selectFile('./cypress/fixtures/example.json', { action: 'drag-drop' })
+            .should(function (input) {
+                //{console.log(input)
+                expect(input[0].files[0].name)
+                    .to.equal('example.json')
+            });
+
     });
     it('Seleciona um arquivo utilizando cy.fixture com alias', () => {
         cy.fixture('example.json').as('sampleFile')
         cy.get('input[type="file"]').selectFile('@sampleFile')
-        .should(function (input) {
-            //{console.log(input)
-            expect(input[0].files[0].name)
-            .to.equal('example.json')
-        });
-        
+            .should(function (input) {
+                //{console.log(input)
+                expect(input[0].files[0].name)
+                    .to.equal('example.json')
+            });
+
     });
     //#endregion
+    //#region
     it('Verifica que a política de privacidade abre em outra aba sem a necessidade de um clique', () => {
         cy.get('a[href="privacy.html"]')
-        .should('have.attr', 'target', '_blank')
+            .should('have.attr', 'target', '_blank')
     });
-     it('Acessa a página da política de privacidade removendo o target e então clicando no link', () => {
+    it('Acessa a página da política de privacidade removendo o target e então clicando no link', () => {
         cy.get('a[href="privacy.html"]')
-        .invoke('removeAttr','target')
-        .click()
+            .invoke('removeAttr', 'target')
+            .click()
 
         cy.get('#title')
-        .should('have.text','CAC TAT - Política de privacidade')
+            .should('have.text', 'CAC TAT - Política de privacidade')
         cy.contains('Talking About Testing').should('be.visible')
-     });
+    });
 
-     it('Exibe e esconde mensagens de sucesso e erro usando .invoke', () => {
-        
+    it('Exibe e esconde mensagens de sucesso e erro usando .invoke', () => {
+
         cy.get('.success')
-        .should('not.be.visible')
-        .invoke('show')
-        .should('be.visible')
-        .and('contain', 'Mensagem enviada com sucesso.')
-        .invoke('hide')
-        .should('not.be.visible')
+            .should('not.be.visible')
+            .invoke('show')
+            .should('be.visible')
+            .and('contain', 'Mensagem enviada com sucesso.')
+            .invoke('hide')
+            .should('not.be.visible')
 
         cy.get('.error')
-        .should('not.be.visible')
-        .invoke('show')
-        .should('be.visible')
-        .and('contain', 'Valide os campos obrigatórios!')
-        .invoke('hide')
-        .should('not.be.visible')
+            .should('not.be.visible')
+            .invoke('show')
+            .should('be.visible')
+            .and('contain', 'Valide os campos obrigatórios!')
+            .invoke('hide')
+            .should('not.be.visible')
 
 
-     });
-
-   
+    });
+    //#endregion
 });
 
