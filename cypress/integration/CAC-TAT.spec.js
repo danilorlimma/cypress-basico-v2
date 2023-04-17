@@ -16,7 +16,7 @@ Cypress._.times(5,function(){
     cy.clock()
     cy.get('#firstName').click().type('Danilo')
     cy.get('#lastName').click().type('Lima')
-    cy.get('#email').click().type('danilo.lima@outlook.com')
+    cy.get('#email').click().type('danilo.lima@outlook.com',{delay:0})
     cy.get('#open-text-area').click().type(longText, { delay: 0 })
     cy.contains('.button[type="submit"]', 'Enviar').click()
     cy.get('.success').should('be.visible')
@@ -163,6 +163,27 @@ Cypress._.times(5,function(){
         cy.get('#title')
         .should('have.text','CAC TAT - Política de privacidade')
         cy.contains('Talking About Testing').should('be.visible')
+     });
+
+     it.only('Exibe e esconde mensagens de sucesso e erro usando .invoke', () => {
+        
+        cy.get('.success')
+        .should('not.be.visible')
+        .invoke('show')
+        .should('be.visible')
+        .and('contain', 'Mensagem enviada com sucesso.')
+        .invoke('hide')
+        .should('not.be.visible')
+
+        cy.get('.error')
+        .should('not.be.visible')
+        .invoke('show')
+        .should('be.visible')
+        .and('contain', 'Valide os campos obrigatórios!')
+        .invoke('hide')
+        .should('not.be.visible')
+
+
      });
 
    
