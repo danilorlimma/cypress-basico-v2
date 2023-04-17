@@ -26,10 +26,13 @@
 
 Cypress.Commands.add('fillMandatoryFieldsAndSubmit',function(){
     const longText = 'Lorem ipsum dolor sit amet. Um este este é este personalizado é este este. sonalizado personalizado um personalizado texto.'
+    cy.clock()
     cy.get('#firstName').click().type('Danilo')
     cy.get('#lastName').click().type('Lima')
     cy.get('#email').click().type('danilo.lima@outlook.com')
     cy.get('#open-text-area').click().type(longText, { delay: 1 })
     cy.get('.button[type="submit"]').click()
     cy.get('.success').should('be.visible')
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible')
 })
