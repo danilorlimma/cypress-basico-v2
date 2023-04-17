@@ -165,7 +165,7 @@ Cypress._.times(5,function(){
         cy.contains('Talking About Testing').should('be.visible')
      });
 
-     it.only('Exibe e esconde mensagens de sucesso e erro usando .invoke', () => {
+     it('Exibe e esconde mensagens de sucesso e erro usando .invoke', () => {
         
         cy.get('.success')
         .should('not.be.visible')
