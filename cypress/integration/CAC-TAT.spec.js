@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 beforeEach(() => {
-    cy.visit('./src/index.html')
+     cy.visit('./src/index.html')
 });
 describe('Central de Atendimento ao Cliente TAT', function () {
     //#region 
@@ -196,6 +196,25 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('#open-text-area')
             .invoke('val', longText) // invoca o valor do elemento
             .should('have.value', longText)
+
+    });
+    it.only('Desafio: encontre o gato', () => {
+        cy.get('#cat').invoke('show')
+    });
+});
+
+describe('Requisições', () => {
+    it('Faz requisição HTTP', () => {
+        cy.request(
+            { method: 'GET', url: 'https://cac-tat.s3.eu-central-1.amazonaws.com/index.html' }
+        ).then((response) => {
+            console.log(response);
+            expect(response.status).to.equal(200);
+            expect(response.statusText).to.equal('OK');
+            expect(response.body).to.include('CAC')
+            //expect(response.body).have.value('CAC')
+        })
+
 
     });
 });
