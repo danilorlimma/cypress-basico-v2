@@ -27,7 +27,6 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         });
     })
 
-
     it('Exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
         cy.clock()
         cy.get('#firstName').click().type('Danilo')
@@ -63,7 +62,6 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('#email').type('danilolimma@outlook.com.br').should('have.value', 'danilolimma@outlook.com.br').clear().should('have.value', '')
         cy.get('#phone').type('123456', { delay: 10 }).should('have.value', '123456').clear().should('have.value', '')
     });
-
 
     it('Exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
         cy.clock()
@@ -198,7 +196,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
             .should('have.value', longText)
 
     });
-    it.only('Desafio: encontre o gato', () => {
+    it('Desafio: encontre o gato', () => {
         cy.get('#cat').invoke('show')
     });
 });
